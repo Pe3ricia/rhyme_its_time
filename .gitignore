@@ -1,2 +1,4 @@
 .env
 __pycache__/
+game.db
+db_control.ipynb
