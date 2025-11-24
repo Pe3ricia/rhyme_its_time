@@ -11,6 +11,7 @@ class User(Base):
     id = Column(Integer, primary_key=True, index=True)  # Telegram user ID
     username = Column(String, nullable=True)
     first_name = Column(String, nullable=True)
+    display_name = Column(String, nullable=False)
 
 class GameSession(Base):
     __tablename__ = "game_sessions"
