@@ -1,4 +1,4 @@
-from sqlalchemy import Column, Integer, String, ForeignKey, DateTime, Text
+from sqlalchemy import Column, Integer, String, ForeignKey, DateTime, Text, Boolean
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import relationship
 from datetime import datetime
@@ -12,7 +12,7 @@ class User(Base):
     username = Column(String, nullable=True)
     first_name = Column(String, nullable=True)
     display_name = Column(String, nullable=False)
-
+    is_ready = Column(Boolean, default=False)
 class GameSession(Base):
     __tablename__ = "game_sessions"
 
@@ -22,6 +22,7 @@ class GameSession(Base):
     max_lines_per_player = Column(Integer, default=2)
     current_turn = Column(Integer, default=0)
     total_lines = Column(Integer, default=0)
+    code = Column(String, unique=True, index=True)
 
 class Player(Base):
     __tablename__ = "players"

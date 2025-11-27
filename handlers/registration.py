@@ -11,7 +11,6 @@ router = Router()
 @router.message(UserRegistration.awaiting_display_name)
 async def process_display_name(message: types.Message, state: FSMContext):
     display_name = message.text.strip()
-
     if not display_name or len(display_name) < 2:
         await message.answer("Имя должно быть не короче 2 символов. Попробуй снова:")
         return

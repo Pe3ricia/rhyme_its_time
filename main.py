@@ -2,7 +2,7 @@ import asyncio
 import logging
 import os
 from dotenv import load_dotenv
-
+from middlewares.registration import RegistrationMiddleware
 from aiogram import Bot, Dispatcher
 from aiogram.enums import ParseMode
 from aiogram.client.default import DefaultBotProperties
@@ -24,21 +24,25 @@ bot = Bot(
 )
 
 dp = Dispatcher()
+dp.message.middleware(RegistrationMiddleware())
 
-# Импортируем роутеры (убедись, что папка handlers существует и содержит файлы)
+# Импортируем роутеры
 from handlers.start import router as start_router
 from handlers.registration import router as registration_router
+from handlers.game_management import router as game_router
 
 # Подключаем роутеры
 dp.include_router(start_router)
+dp.include_router(game_router)
 dp.include_router(registration_router)
 
-# Функция для установки команд меню (опционально, но удобно)
+# Функция для установки команд меню
 async def set_bot_commands():
     commands = [
         BotCommand(command="/start", description="Начать или обновить профиль"),
         BotCommand(command="/newgame", description="Создать новую игру"),
         BotCommand(command="/join", description="Присоединиться к игре"),
+        BotCommand(command="/leave", description="Покинуть игру"),
     ]
     await bot.set_my_commands(commands)
 
